@@ -20,6 +20,8 @@
 	<properties>
 		<java.version>21</java.version>
 		<pdfbox.version>3.0.7</pdfbox.version>
+		<tess4j.version>5.16.0</tess4j.version>
+		<genai.version>1.61.0</genai.version>
 	</properties>
 
 	<dependencies>
@@ -34,6 +36,21 @@
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
 			<version>${pdfbox.version}</version>
+		</dependency>
+
+		<!-- OCR: 텍스트 레이어가 없는 스캔 페이지를 글자로 변환한다.
+		     Tesseract 엔진의 자바 래퍼이며, 네이티브 라이브러리와 영어 데이터를 함께 배포한다 -->
+		<dependency>
+			<groupId>net.sourceforge.tess4j</groupId>
+			<artifactId>tess4j</artifactId>
+			<version>${tess4j.version}</version>
+		</dependency>
+
+		<!-- LLM: 규칙으로 판정하지 못한 페이지를 문맥으로 분류한다 -->
+		<dependency>
+			<groupId>com.google.genai</groupId>
+			<artifactId>google-genai</artifactId>
+			<version>${genai.version}</version>
 		</dependency>
 
 		<!-- 테스트 (JUnit 5, AssertJ, MockMvc 포함) -->
