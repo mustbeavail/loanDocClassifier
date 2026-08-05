@@ -4,7 +4,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -41,10 +40,7 @@ class Tess4jVerificationTest {
 	 * 제공 자료는 외부 공유 금지라 저장소에 넣지 않으므로, 경로를 실행 옵션으로 받는다.
 	 * 예) mvn test -DtestPdfDir="C:/자료가/있는/폴더"
 	 */
-	private static final Path SCANNED_PDF =
-			Path.of(System.getProperty("testPdfDir", "")).resolve("02.990367284_shuffled.pdf");
-
-	/** 텍스트 레이어가 없는 스캔 페이지들. 11p는 180도, 26p·40p는 90도 회전 상태 */
+	/** 텍스트 레이어가 없는 스캔 페이지들. 11p는 180도, 26p·40p는 270도 회전 상태 */
 	private static final int[] SCANNED_PAGES = {11, 26, 40};
 
 	/** 시도할 회전 각도 */
@@ -60,12 +56,13 @@ class Tess4jVerificationTest {
 	@DisplayName("회전된 스캔 페이지를 4방향 시도로 바로 세워 읽어낸다")
 	void ocr_findsCorrectRotation() throws Exception {
 		// 제공 자료가 없는 환경에서는 건너뛴다
-		Assumptions.assumeTrue(Files.exists(SCANNED_PDF), "검증용 PDF를 찾을 수 없어 건너뜁니다");
+		Assumptions.assumeTrue(TestMaterials.isAvailable(), "제공 자료 폴더가 없어 건너뜁니다");
 
+		Path scannedPdf = TestMaterials.package02Shuffled();
 		ITesseract tesseract = createTesseract();
 
 		for (int pageNumber : SCANNED_PAGES) {
-			BufferedImage original = renderPage(SCANNED_PDF, pageNumber);
+			BufferedImage original = renderPage(scannedPdf, pageNumber);
 
 			int bestRotation = 0;
 			double bestConfidence = -1;
