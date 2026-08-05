@@ -12,6 +12,9 @@ node_modules/
 .env.local
 .env.*.local
 
+# Gemini API 키를 적는 로컬 설정. 절대 커밋하지 않는다
+application-local.properties
+
 # IDE
 .idea/
 .vscode/
