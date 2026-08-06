@@ -1,0 +1,343 @@
+/* 화면 전체가 함께 쓰는 스타일. 화면이 두 개뿐이라 파일을 나누지 않았다 */
+
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.description {
+  color: #4b5563;
+  font-size: 14px;
+}
+
+/* --- 탭 --- */
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.tab,
+.tabActive {
+  padding: 10px 18px;
+  border: none;
+  background: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: #6b7280;
+  border-bottom: 2px solid transparent;
+}
+
+.tabActive {
+  color: #111827;
+  font-weight: 600;
+  border-bottom-color: #2563eb;
+}
+
+/* --- 업로드 --- */
+
+.uploadBox {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.uploadRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.primaryButton {
+  padding: 9px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.primaryButton:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.hint {
+  color: #6b7280;
+  font-size: 13px;
+  margin-top: 6px;
+  line-height: 1.6;
+}
+
+/* --- 상태 표시 --- */
+
+.progressBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin-top: 2px;
+  border: 2px solid #bfdbfe;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorBox {
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 14px;
+}
+
+.warnBox {
+  border: 1px solid #fde68a;
+  background: #fffbeb;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 14px;
+  margin-top: 12px;
+}
+
+.emptyBox {
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* --- 결과 --- */
+
+.resultBox {
+  margin-top: 4px;
+}
+
+.fileName {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 28px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.summaryRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.summaryCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  min-width: 110px;
+}
+
+.summaryLabel {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.summaryValue {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.summaryValueStrong {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+/* --- 페이지 색 띠 --- */
+
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.stripCell {
+  width: 34px;
+  height: 30px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.labelChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.labelDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: none;
+}
+
+/* --- 문서 목록 --- */
+
+.documentCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+
+.documentHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.pageOrder {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.pageTag {
+  background: #f3f4f6;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 12px;
+}
+
+/* --- 표 --- */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  background: #f9fafb;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.matrixHit {
+  background: #eff6ff;
+  font-weight: 600;
+}
+
+.evidence {
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+/* --- 배지 --- */
+
+.badgeLive,
+.badgeStored,
+.badgeOcr {
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+.badgeLive {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.badgeStored {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.badgeOcr {
+  background: #fef3c7;
+  color: #92400e;
+  margin-left: 6px;
+}

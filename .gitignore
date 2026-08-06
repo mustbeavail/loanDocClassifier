@@ -20,6 +20,11 @@ application-local.properties
 .vscode/
 *.iml
 
+# 코딩 에이전트용 안내 파일. next dev가 자동으로 만든다
+frontend/AGENTS.md
+frontend/CLAUDE.md
+.playwright-mcp/
+
 # OS
 Thumbs.db
 .DS_Store
