@@ -28,7 +28,17 @@ public class PageMarkerParser {
 			Pattern.compile("(?i)\\b(?:page\\s+)?(\\d(?:\\s?\\d)*)\\s+of\\s+(\\d(?:\\s?\\d)*)\\b");
 
 	/**
+	 * 총장수 없이 쪽번호만 찍는 양식을 위한 패턴.
+	 * package_01의 권원보고서(CLTA)가 바닥글에 "Page 4"까지만 적고 전체 장수를 적지 않는다.
+	 */
+	private static final Pattern PAGE_NUMBER_ONLY = Pattern.compile("(?i)\\bpage\\s+(\\d{1,3})\\b");
+
+	/**
 	 * 페이지 텍스트에서 순번 표기를 찾는다.
+	 *
+	 * <p>총장수가 함께 찍힌 "N of M"을 먼저 본다. 그 모양이 텍스트에 하나도 없을 때만
+	 * 쪽번호만 있는 "Page N"으로 물러난다. "Page 12 of 5"처럼 총장수가 있는데 값이 이상한 경우까지
+	 * 쪽번호로 되살리면 버리기로 한 표기가 되살아나기 때문이다.
 	 *
 	 * <p>여러 개가 잡히면 <b>마지막 것</b>을 쓴다. 순번은 대개 바닥글에 찍히는데
 	 * 본문에도 "1 of 3 borrowers" 같은 표현이 나올 수 있어, 뒤쪽에 있는 것이 바닥글일 가능성이 높다.
@@ -37,10 +47,13 @@ public class PageMarkerParser {
 	 * @return 찾은 순번 표기. 없으면 null
 	 */
 	public PageMarker parse(String pageText) {
-		Matcher matcher = MARKER.matcher(PdfPageReader.normalizeWhitespace(pageText));
+		String text = PdfPageReader.normalizeWhitespace(pageText);
+		Matcher matcher = MARKER.matcher(text);
 
+		boolean sawTotalForm = false;
 		PageMarker found = null;
 		while (matcher.find()) {
+			sawTotalForm = true;
 			int position = toNumber(matcher.group(1));
 			int total = toNumber(matcher.group(2));
 
@@ -48,6 +61,26 @@ public class PageMarkerParser {
 			if (position >= 1 && position <= total) {
 				found = new PageMarker(position, total);
 			}
+		}
+
+		return sawTotalForm ? found : parsePageNumberOnly(text);
+	}
+
+	/**
+	 * 총장수 없이 쪽번호만 찍힌 표기를 읽는다.
+	 *
+	 * <p>"Book 577, Page 401" 같은 등기 참조도 모양이 똑같다. 페이지 한 장만 봐서는 가릴 수 없어
+	 * 여기서는 후보로만 내놓고, 같은 라벨의 페이지를 모아 볼 수 있는 {@code DocumentGrouper}가 걸러낸다.
+	 *
+	 * @param text 공백이 정규화된 페이지 텍스트
+	 * @return 총장수를 0으로 둔 순번 표기. 없으면 null
+	 */
+	private PageMarker parsePageNumberOnly(String text) {
+		Matcher matcher = PAGE_NUMBER_ONLY.matcher(text);
+
+		PageMarker found = null;
+		while (matcher.find()) {
+			found = new PageMarker(Integer.parseInt(matcher.group(1)), 0);
 		}
 		return found;
 	}

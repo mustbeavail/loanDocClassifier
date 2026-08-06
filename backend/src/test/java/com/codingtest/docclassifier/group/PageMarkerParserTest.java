@@ -50,6 +50,14 @@ class PageMarkerParserTest {
 	}
 
 	@Test
+	@DisplayName("표기를 사람이 읽는 문자열로 만든다")
+	void rendersMarkerText() {
+		assertThat(new PageMarker(3, 11).text()).isEqualTo("3 of 11");
+		// 총장수를 모르면 "3 of 0"처럼 없는 정보를 지어내지 않는다
+		assertThat(new PageMarker(3, 0).text()).isEqualTo("Page 3");
+	}
+
+	@Test
 	@DisplayName("표기가 없으면 null을 돌려준다")
 	void returnsNullWhenNoMarker() {
 		PageMarker marker = parser.parse("Terms Reported On Manner of Payment Revolving Charge");
@@ -64,6 +72,33 @@ class PageMarkerParserTest {
 		PageMarker marker = parser.parse("paid 12 of 5 installments");
 
 		assertThat(marker).isNull();
+	}
+
+	@Test
+	@DisplayName("총장수 없이 쪽번호만 찍힌 양식은 총장수를 0으로 읽는다")
+	void readsPageNumberWithoutTotal() {
+		// package_01 권원보고서(CLTA)의 바닥글이다. "of 9"가 없다
+		PageMarker marker = parser.parse(
+				"CLTA Preliminary Report Form (02/03/2023) Printed: 04.22.26 @ 12:26 PM Page 4 CA-FT-FLVE-01500");
+
+		assertThat(marker).isEqualTo(new PageMarker(4, 0));
+	}
+
+	@Test
+	@DisplayName("총장수가 함께 있으면 쪽번호만 있는 표기보다 그쪽을 쓴다")
+	void prefersMarkerWithTotal() {
+		// 등기 참조("Book 15502 at Page 2096")와 바닥글이 한 페이지에 같이 있는 경우다
+		PageMarker marker = parser.parse(
+				"recorded in Deed Book 15502 at Page 2096 ... Form 50167851 (8-25-22) Page 2 of 5");
+
+		assertThat(marker).isEqualTo(new PageMarker(2, 5));
+	}
+
+	@Test
+	@DisplayName("총장수가 있는데 값이 이상하면 쪽번호로 되살리지 않는다")
+	void doesNotFallBackWhenTotalFormIsImplausible() {
+		// "12 of 5"를 버린 뒤 "Page 12"로 되살리면 버리기로 한 표기가 돌아온다
+		assertThat(parser.parse("paid Page 12 of 5 installments")).isNull();
 	}
 
 	@Test

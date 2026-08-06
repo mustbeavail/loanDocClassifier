@@ -39,6 +39,19 @@ class DocumentGrouperTest {
 		return new ClassifiedPage(pageNumber, label, marker, "페이지 " + pageNumber + " 본문");
 	}
 
+	/**
+	 * 총장수 없이 쪽번호만 인쇄된 페이지를 만든다.
+	 *
+	 * @param pageNumber 셔플 PDF의 페이지 번호
+	 * @param label      라벨
+	 * @param printed    종이에 찍힌 쪽번호
+	 * @return 분류된 페이지
+	 */
+	private ClassifiedPage pageNumbered(int pageNumber, DocumentType label, int printed) {
+		return new ClassifiedPage(pageNumber, label, new PageMarker(printed, 0),
+				"페이지 " + pageNumber + " 본문");
+	}
+
 	@Test
 	@DisplayName("순번 표기가 다 있고 겹치지 않으면 표기 순서대로 한 문서를 만든다")
 	void groupsScatteredPagesInOrder() {
@@ -111,6 +124,39 @@ class DocumentGrouperTest {
 
 		GroupingResult result = grouper.group(pages);
 
+		assertThat(result.documents()).isEmpty();
+		assertThat(result.ungroupedPages()).containsExactly(1, 2, 3);
+	}
+
+	@Test
+	@DisplayName("총장수를 모르는 쪽번호만 있으면 규칙으로 끝내지 않고 LLM에 넘긴다")
+	void sendsPageNumbersWithoutTotalToLlm() {
+		// package_01의 권원보고서가 이렇다. 쪽번호는 있지만 몇 장짜리 문서인지 적혀 있지 않다
+		List<ClassifiedPage> pages = List.of(
+				pageNumbered(32, DocumentType.TITLE_REPORT, 1),
+				pageNumbered(34, DocumentType.TITLE_REPORT, 2),
+				pageNumbered(37, DocumentType.TITLE_REPORT, 3));
+
+		GroupingResult result = grouper.group(pages);
+
+		// 몇 장짜리인지 모르면 지금 모인 페이지가 한 부를 이루는지 판단할 수 없다
+		assertThat(result.documents()).isEmpty();
+		assertThat(result.ungroupedPages()).containsExactly(32, 34, 37);
+	}
+
+	@Test
+	@DisplayName("본문 숫자로 보이는 쪽번호는 버리고 표기 없는 것으로 다룬다")
+	void dropsPageNumbersThatCannotBeRealOnes() {
+		// "Book 577, Page 401" 같은 등기 참조가 쪽번호로 잘못 읽힌 경우다.
+		// 세 장짜리 묶음에 401쪽이 있을 수 없고, 같은 번호가 두 번 나올 수도 없다
+		List<ClassifiedPage> pages = List.of(
+				pageNumbered(1, DocumentType.TITLE_REPORT, 401),
+				pageNumbered(2, DocumentType.TITLE_REPORT, 401),
+				pageNumbered(3, DocumentType.TITLE_REPORT, 726));
+
+		GroupingResult result = grouper.group(pages);
+
+		// 표기가 없는 것과 같은 취급이 되어 LLM 경로로 간다
 		assertThat(result.documents()).isEmpty();
 		assertThat(result.ungroupedPages()).containsExactly(1, 2, 3);
 	}

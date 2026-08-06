@@ -9,7 +9,9 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -18,15 +20,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.codingtest.docclassifier.TestMaterials;
+import com.codingtest.docclassifier.accuracy.AccuracyResult.PageComparison;
 import com.codingtest.docclassifier.classify.DocumentType;
 import com.codingtest.docclassifier.classify.RuleClassifier;
 import com.codingtest.docclassifier.classify.RuleDecision;
 import com.codingtest.docclassifier.groundtruth.GroundTruth;
+import com.codingtest.docclassifier.groundtruth.GroundTruth.GroundTruthPage;
 import com.codingtest.docclassifier.llm.GeminiClassifier;
 import com.codingtest.docclassifier.llm.LlmDecision;
 import com.codingtest.docclassifier.pdf.PdfPage;
 import com.codingtest.docclassifier.pdf.PdfPageReader;
 
+import tools.jackson.databind.SerializationFeature;
 import tools.jackson.databind.json.JsonMapper;
 
 /**
@@ -45,6 +50,12 @@ class RuleAndLlmAccuracyTest {
 
 	/** 키를 적어 두는 로컬 설정 파일. .gitignore 대상이라 저장소에는 올라가지 않는다 */
 	private static final Path LOCAL_SETTINGS = Path.of("src/main/resources/application-local.properties");
+
+	/**
+	 * 측정 결과를 저장할 위치. 이 파일을 저장소에 커밋해 두면 자료와 API 키가 없는 사람도
+	 * {@code GET /api/accuracy}로 정확도 화면을 볼 수 있다.
+	 */
+	private static final Path OUTPUT_PATH = Path.of("src/main/resources/results/package_01-accuracy.json");
 
 	private final PdfPageReader pageReader = new PdfPageReader();
 	private final RuleClassifier ruleClassifier = new RuleClassifier();
@@ -118,7 +129,11 @@ class RuleAndLlmAccuracyTest {
 		AccuracyReport ruleReport = evaluator.evaluate(groundTruth, ruleOnly);
 		AccuracyReport combinedReport = evaluator.evaluate(groundTruth, combined);
 		AccuracyReportPrinter.print("package_01 규칙+LLM 분류 결과", combinedReport, groundTruth, combined, evidences);
-		warnIfCallsFailed(evidences);
+
+		// 호출이 실패한 페이지가 섞인 수치를 저장하면, 그 파일을 읽는 화면에도 잘못된 수치가 그대로 나간다
+		if (warnIfCallsFailed(evidences) == 0) {
+			save(combinedReport, groundTruth, combined, evidences);
+		}
 
 		// 2차 판정을 붙인 목적은 규칙이 남긴 보류를 없애는 것이다. 보류가 그대로면 붙인 의미가 없다
 		assertThat(combinedReport.undecidedPages())
@@ -139,8 +154,9 @@ class RuleAndLlmAccuracyTest {
 	 * 수치를 README에 옮기기 전에 이 줄을 보고 걸러내라고 남기는 경고다.
 	 *
 	 * @param evidences 페이지별 판정 근거·사유
+	 * @return 호출이 실패한 페이지 수
 	 */
-	private void warnIfCallsFailed(Map<Integer, String> evidences) {
+	private int warnIfCallsFailed(Map<Integer, String> evidences) {
 		int failedPages = 0;
 		for (String evidence : evidences.values()) {
 			if (evidence.contains("호출 실패")) {
@@ -153,5 +169,39 @@ class RuleAndLlmAccuracyTest {
 			out.printf("%n[주의] %d장은 Gemini 호출이 실패해 미판정입니다."
 					+ " 이번 수치는 분류 성능이 아니라 API 상태를 반영한 것이므로 그대로 쓰지 마세요.%n", failedPages);
 		}
+		return failedPages;
+	}
+
+	/**
+	 * 측정 결과를 JSON 파일로 저장한다. {@code GET /api/accuracy}가 이 파일을 읽어 화면에 뿌린다.
+	 *
+	 * <p>정확도 수치를 손으로 옮겨 적지 않는다는 것이 요점이다.
+	 * 측정한 그 자리에서 저장하므로 화면의 숫자와 실제 측정 결과가 어긋날 수 없다.
+	 *
+	 * @param report      측정 리포트
+	 * @param groundTruth 정답지
+	 * @param predictions 페이지 번호 → 판정한 라벨
+	 * @param evidences   페이지 번호 → 판정 근거·사유
+	 * @throws IOException 파일을 쓰지 못한 경우
+	 */
+	private void save(AccuracyReport report, GroundTruth groundTruth,
+			Map<Integer, DocumentType> predictions, Map<Integer, String> evidences) throws IOException {
+
+		List<PageComparison> comparisons = new ArrayList<>();
+		for (GroundTruthPage answer : groundTruth.pages()) {
+			comparisons.add(new PageComparison(
+					answer.page(),
+					answer.label(),
+					predictions.get(answer.page()),
+					evidences.get(answer.page())));
+		}
+
+		AccuracyResult result = new AccuracyResult(groundTruth.packageId(), "규칙 → LLM", report, comparisons);
+
+		Files.createDirectories(OUTPUT_PATH.getParent());
+		JsonMapper.builder()
+				.enable(SerializationFeature.INDENT_OUTPUT)
+				.build()
+				.writeValue(OUTPUT_PATH.toFile(), result);
 	}
 }

@@ -56,7 +56,20 @@ public class RuleClassifier {
 	 * @return 판정 결과. 키워드가 하나도 없거나 두 유형 이상이 동시에 걸리면 미판정
 	 */
 	public RuleDecision classify(PdfPage page) {
-		String text = PdfPageReader.normalizeWhitespace(page.text()).toLowerCase();
+		return classify(page.text());
+	}
+
+	/**
+	 * 텍스트만 받아 판정한다.
+	 *
+	 * <p>스캔 페이지는 텍스트 레이어가 비어 있어 OCR로 읽은 글자를 대신 넣어야 한다.
+	 * 그 글자는 {@link PdfPage}에 들어 있지 않으므로 텍스트를 직접 받는 입구를 따로 둔다.
+	 *
+	 * @param pageText 판정에 쓸 페이지 텍스트
+	 * @return 판정 결과. 키워드가 하나도 없거나 두 유형 이상이 동시에 걸리면 미판정
+	 */
+	public RuleDecision classify(String pageText) {
+		String text = PdfPageReader.normalizeWhitespace(pageText).toLowerCase();
 
 		List<RuleDecision> matches = new ArrayList<>();
 		for (Map.Entry<DocumentType, List<String>> entry : KEYWORDS.entrySet()) {

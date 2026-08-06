@@ -87,8 +87,10 @@ public class DocumentGrouper {
 	 * @param documents 만들어진 문서를 담을 곳
 	 * @param ungrouped 묶지 못한 페이지 번호를 담을 곳
 	 */
-	private void groupOneLabel(DocumentType label, List<ClassifiedPage> pages,
+	private void groupOneLabel(DocumentType label, List<ClassifiedPage> allPages,
 			List<DocumentGroup> documents, List<Integer> ungrouped) {
+
+		List<ClassifiedPage> pages = dropUnusablePageNumbers(allPages);
 
 		if (pages.size() == 1) {
 			// 한 장뿐이면 그 자체가 문서다. 물어볼 것이 없다
@@ -105,10 +107,57 @@ public class DocumentGrouper {
 	}
 
 	/**
+	 * 같은 라벨 안에서 총장수 없는 쪽번호가 진짜 쪽번호인지 보고, 아니면 버린다.
+	 *
+	 * <p>"Book 577, Page 401" 같은 등기 참조도 쪽번호와 모양이 똑같다.
+	 * 페이지 한 장만 봐서는 가릴 수 없고, 같은 라벨을 모아 놓고 봐야 갈린다.
+	 * 진짜 쪽번호라면 서로 겹치지 않고 그 문서의 장수를 넘지 않는다.
+	 *
+	 * @param pages 한 라벨의 페이지들
+	 * @return 쓸 수 없는 쪽번호를 지운 페이지들. 쓸 만하면 받은 그대로
+	 */
+	private List<ClassifiedPage> dropUnusablePageNumbers(List<ClassifiedPage> pages) {
+		List<Integer> pageNumbers = new ArrayList<>();
+		for (ClassifiedPage page : pages) {
+			if (page.marker() != null && page.marker().total() == 0) {
+				pageNumbers.add(page.marker().position());
+			}
+		}
+		if (pageNumbers.isEmpty()) {
+			return pages;
+		}
+
+		boolean usable = true;
+		for (int pageNumber : pageNumbers) {
+			boolean duplicated = pageNumbers.indexOf(pageNumber) != pageNumbers.lastIndexOf(pageNumber);
+			if (duplicated || pageNumber > pages.size()) {
+				usable = false;
+			}
+		}
+		if (usable) {
+			return pages;
+		}
+
+		log.warn("{}의 쪽번호 {}는 본문 숫자로 보여 쓰지 않습니다", pages.get(0).label(), pageNumbers);
+		List<ClassifiedPage> cleaned = new ArrayList<>();
+		for (ClassifiedPage page : pages) {
+			boolean drop = page.marker() != null && page.marker().total() == 0;
+			cleaned.add(drop
+					? new ClassifiedPage(page.pageNumber(), page.label(), null, page.text())
+					: page);
+		}
+		return cleaned;
+	}
+
+	/**
 	 * 순번 표기만으로 문서를 완성할 수 있는지 본다.
 	 *
 	 * <p>모든 페이지에 표기가 있고, 전체 장수가 하나로 같고, 순번이 겹치지 않아야 한다.
 	 * 셋 중 하나라도 어긋나면 표기가 말해 주지 않는 부분이 남는다는 뜻이다.
+	 *
+	 * <p>총장수를 모르는 표기(쪽번호만 인쇄된 양식)가 섞여 있으면 여기서 끝내지 않는다.
+	 * 몇 장짜리 문서인지 모르면 지금 모인 페이지가 한 부를 이루는지 판단할 수 없기 때문이다.
+	 * 그 쪽번호는 문서를 가르는 데는 못 쓰고, 뒤에서 장 순서를 바로잡는 데만 쓴다.
 	 *
 	 * @param pages 한 라벨의 페이지들
 	 * @return 표기만으로 묶을 수 있으면 true
@@ -118,7 +167,7 @@ public class DocumentGrouper {
 		int total = -1;
 
 		for (ClassifiedPage page : pages) {
-			if (page.marker() == null) {
+			if (page.marker() == null || page.marker().total() == 0) {
 				return false;
 			}
 			if (total == -1) {
@@ -278,12 +327,9 @@ public class DocumentGrouper {
 	 * 순번 표기를 프롬프트에 넣을 문자열로 만든다.
 	 *
 	 * @param page 대상 페이지
-	 * @return "3 of 5" 형태의 문자열. 표기가 없으면 null
+	 * @return "3 of 5" 또는 총장수를 모르면 "Page 3". 표기가 없으면 null
 	 */
 	private String markerTextOf(ClassifiedPage page) {
-		if (page.marker() == null) {
-			return null;
-		}
-		return page.marker().position() + " of " + page.marker().total();
+		return page.marker() == null ? null : page.marker().text();
 	}
 }

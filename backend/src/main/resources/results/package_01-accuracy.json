@@ -1,0 +1,289 @@
+{
+  "packageId" : "package_01",
+  "pipeline" : "규칙 → LLM",
+  "report" : {
+    "totalPages" : 39,
+    "correctPages" : 39,
+    "accuracy" : 1.0,
+    "undecidedPages" : 0,
+    "labelMetrics" : [ {
+      "label" : "URLA_1003",
+      "support" : 11,
+      "predicted" : 11,
+      "correct" : 11,
+      "precision" : 1.0,
+      "recall" : 1.0,
+      "f1" : 1.0
+    }, {
+      "label" : "CREDIT_REPORT",
+      "support" : 18,
+      "predicted" : 18,
+      "correct" : 18,
+      "precision" : 1.0,
+      "recall" : 1.0,
+      "f1" : 1.0
+    }, {
+      "label" : "TITLE_REPORT",
+      "support" : 9,
+      "predicted" : 9,
+      "correct" : 9,
+      "precision" : 1.0,
+      "recall" : 1.0,
+      "f1" : 1.0
+    }, {
+      "label" : "INCOME_DOC",
+      "support" : 1,
+      "predicted" : 1,
+      "correct" : 1,
+      "precision" : 1.0,
+      "recall" : 1.0,
+      "f1" : 1.0
+    }, {
+      "label" : "OTHER",
+      "support" : 0,
+      "predicted" : 0,
+      "correct" : 0,
+      "precision" : 0.0,
+      "recall" : 0.0,
+      "f1" : 0.0
+    } ],
+    "confusionMatrix" : {
+      "URLA_1003" : {
+        "URLA_1003" : 11,
+        "CREDIT_REPORT" : 0,
+        "TITLE_REPORT" : 0,
+        "INCOME_DOC" : 0,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      },
+      "CREDIT_REPORT" : {
+        "URLA_1003" : 0,
+        "CREDIT_REPORT" : 18,
+        "TITLE_REPORT" : 0,
+        "INCOME_DOC" : 0,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      },
+      "TITLE_REPORT" : {
+        "URLA_1003" : 0,
+        "CREDIT_REPORT" : 0,
+        "TITLE_REPORT" : 9,
+        "INCOME_DOC" : 0,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      },
+      "INCOME_DOC" : {
+        "URLA_1003" : 0,
+        "CREDIT_REPORT" : 0,
+        "TITLE_REPORT" : 0,
+        "INCOME_DOC" : 1,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      },
+      "OTHER" : {
+        "URLA_1003" : 0,
+        "CREDIT_REPORT" : 0,
+        "TITLE_REPORT" : 0,
+        "INCOME_DOC" : 0,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      }
+    }
+  },
+  "pages" : [ {
+    "page" : 1,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 2,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 3,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "LLM(0.95): Xactus에서 발행한 신용 보고서 관련 대출 신청자 서명 서명 요청 서식으로 CREDIT_REPORT에 해당합니다."
+  }, {
+    "page" : 4,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 5,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 6,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 7,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 8,
+    "actual" : "TITLE_REPORT",
+    "predicted" : "TITLE_REPORT",
+    "evidence" : "LLM(0.90): 익명화 처리로 제거된 플랫 맵(Plat map)은 부동산 구획 도면으로서 주로 권원 보고서(TITLE_REPORT)에 포함되는 항목입니다."
+  }, {
+    "page" : 9,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 10,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 11,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 12,
+    "actual" : "TITLE_REPORT",
+    "predicted" : "TITLE_REPORT",
+    "evidence" : "규칙: preliminary report"
+  }, {
+    "page" : 13,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "LLM(0.95): Xactus에서 작성한 신용 보고서 관련 안내 및 신용 조회 내역 설명 요청서이므로 신용 보고서 유형에 해당합니다."
+  }, {
+    "page" : 14,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 15,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 16,
+    "actual" : "TITLE_REPORT",
+    "predicted" : "TITLE_REPORT",
+    "evidence" : "규칙: preliminary report"
+  }, {
+    "page" : 17,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "LLM(1.00): 해당 문서는 Equifax 신용점수(701점) 및 신용점수 고지문 등 신용보고서 관련 정보를 담고 있으므로 CREDIT_REPORT에 해당합니다."
+  }, {
+    "page" : 18,
+    "actual" : "TITLE_REPORT",
+    "predicted" : "TITLE_REPORT",
+    "evidence" : "규칙: preliminary report"
+  }, {
+    "page" : 19,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 20,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 21,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 22,
+    "actual" : "TITLE_REPORT",
+    "predicted" : "TITLE_REPORT",
+    "evidence" : "규칙: preliminary report"
+  }, {
+    "page" : 23,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "LLM(0.98): TransUnion, Experian, Equifax 등 3대 신용평가기관의 조회 내역 및 신용 보고서 관련 정보가 명시되어 있어 CREDIT_REPORT로 판단됩니다."
+  }, {
+    "page" : 24,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 25,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: credit score disclosure"
+  }, {
+    "page" : 26,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 27,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 28,
+    "actual" : "TITLE_REPORT",
+    "predicted" : "TITLE_REPORT",
+    "evidence" : "규칙: preliminary report"
+  }, {
+    "page" : 29,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "LLM(0.99): XACTUS에서 발행한 차주의 신용 계좌 내역, 연체 기록, 파산 공공 기록 등이 포함된 신용 보고서입니다."
+  }, {
+    "page" : 30,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 31,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 32,
+    "actual" : "TITLE_REPORT",
+    "predicted" : "TITLE_REPORT",
+    "evidence" : "규칙: preliminary report"
+  }, {
+    "page" : 33,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  }, {
+    "page" : 34,
+    "actual" : "TITLE_REPORT",
+    "predicted" : "TITLE_REPORT",
+    "evidence" : "규칙: preliminary report"
+  }, {
+    "page" : 35,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 36,
+    "actual" : "INCOME_DOC",
+    "predicted" : "INCOME_DOC",
+    "evidence" : "LLM(0.88): CTEC 세무대리인 번호와 Realtor 관련 수입 및 지출 내역이 기재되어 있는 세무 보고서 또는 손익계산서 형태의 소득 증빙 문서입니다."
+  }, {
+    "page" : 37,
+    "actual" : "TITLE_REPORT",
+    "predicted" : "TITLE_REPORT",
+    "evidence" : "규칙: preliminary report"
+  }, {
+    "page" : 38,
+    "actual" : "URLA_1003",
+    "predicted" : "URLA_1003",
+    "evidence" : "규칙: freddie mac form 65"
+  }, {
+    "page" : 39,
+    "actual" : "CREDIT_REPORT",
+    "predicted" : "CREDIT_REPORT",
+    "evidence" : "규칙: repositories: tuc/exp/eqx"
+  } ]
+}
