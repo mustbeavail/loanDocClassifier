@@ -27,6 +27,13 @@ public final class TestMaterials {
 	/** 페이지가 섞인 PDF의 파일명 끝 부분 */
 	private static final String SHUFFLED_SUFFIX = "_shuffled.pdf";
 
+	/**
+	 * 테스트가 Gemini를 부를 때 쓰는 모델 이름.
+	 * 테스트마다 따로 적어 두면 모델을 바꿀 때 설정과 갈라지므로 한 곳에 모았다.
+	 * {@code application.properties} 의 {@code gemini.model} 과 같게 유지한다.
+	 */
+	public static final String GEMINI_MODEL = "gemini-3.6-flash";
+
 	private TestMaterials() {
 	}
 

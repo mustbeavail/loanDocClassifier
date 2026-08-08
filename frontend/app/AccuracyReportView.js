@@ -104,7 +104,7 @@ function LabelChip({ label }) {
  */
 function ConfusionMatrix({ matrix }) {
   const used = LABEL_ORDER.filter((label) => {
-    const isActual = matrix[label] !== undefined;
+    const isActual = Object.values(matrix[label] ?? {}).some((count) => count > 0);
     const isPredicted = Object.values(matrix).some((row) => row[label] > 0);
     return isActual || isPredicted;
   });

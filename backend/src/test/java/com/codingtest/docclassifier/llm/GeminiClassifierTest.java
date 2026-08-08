@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.codingtest.docclassifier.TestMaterials;
 import com.codingtest.docclassifier.classify.DocumentType;
 
 /**
@@ -25,8 +26,6 @@ import com.codingtest.docclassifier.classify.DocumentType;
  */
 class GeminiClassifierTest {
 
-	/** 2차 판정에 쓰는 모델 */
-	private static final String MODEL = "gemini-3.6-flash";
 
 	/** 실제 서류 한 페이지의 앞부분 (package_02 23페이지, URLA 신청서 7/10장) */
 	private static final String URLA_PAGE_TEXT = """
@@ -69,7 +68,7 @@ class GeminiClassifierTest {
 	@Test
 	@DisplayName("키가 없으면 예외 없이 미판정을 돌려준다")
 	void withoutApiKey_returnsUndecided() {
-		GeminiClassifier classifier = new GeminiClassifier("", MODEL);
+		GeminiClassifier classifier = new GeminiClassifier("", TestMaterials.GEMINI_MODEL);
 
 		LlmDecision decision = classifier.classify(URLA_PAGE_TEXT);
 
@@ -81,7 +80,7 @@ class GeminiClassifierTest {
 	@Test
 	@DisplayName("키가 없으면 빈 텍스트를 넣어도 예외가 나지 않는다")
 	void withoutApiKey_emptyTextDoesNotThrow() {
-		GeminiClassifier classifier = new GeminiClassifier("", MODEL);
+		GeminiClassifier classifier = new GeminiClassifier("", TestMaterials.GEMINI_MODEL);
 
 		assertThatCode(() -> classifier.classify("")).doesNotThrowAnyException();
 	}
@@ -91,7 +90,7 @@ class GeminiClassifierTest {
 	void failedCall_recordsShortReason() {
 		// 일부러 못 쓰는 키를 넣어 실패 경로를 태운다.
 		// 재시도를 넣지 않기로 했으므로, 실패했을 때 사유가 남는지가 이 경로의 유일한 안전장치다
-		LlmDecision decision = new GeminiClassifier("이-키는-쓸-수-없다", MODEL).classify(URLA_PAGE_TEXT);
+		LlmDecision decision = new GeminiClassifier("이-키는-쓸-수-없다", TestMaterials.GEMINI_MODEL).classify(URLA_PAGE_TEXT);
 
 		assertThat(decision.label()).isEqualTo(DocumentType.UNDECIDED);
 		assertThat(decision.reason()).startsWith("호출 실패: ");
@@ -106,7 +105,7 @@ class GeminiClassifierTest {
 		String apiKey = findApiKey();
 		Assumptions.assumeTrue(!apiKey.isBlank(), "GOOGLE_API_KEY가 없어 건너뜁니다");
 
-		LlmDecision decision = new GeminiClassifier(apiKey, MODEL).classify(URLA_PAGE_TEXT);
+		LlmDecision decision = new GeminiClassifier(apiKey, TestMaterials.GEMINI_MODEL).classify(URLA_PAGE_TEXT);
 
 		assertThat(decision.label()).isEqualTo(DocumentType.URLA_1003);
 		assertThat(decision.confidence()).isBetween(0.0, 1.0);
@@ -121,7 +120,7 @@ class GeminiClassifierTest {
 
 		String unrelated = "오늘 점심 메뉴는 김치찌개와 계란말이입니다. 영업시간은 오전 11시부터입니다.";
 
-		LlmDecision decision = new GeminiClassifier(apiKey, MODEL).classify(unrelated);
+		LlmDecision decision = new GeminiClassifier(apiKey, TestMaterials.GEMINI_MODEL).classify(unrelated);
 
 		assertThat(decision.label()).isEqualTo(DocumentType.OTHER);
 	}
@@ -134,7 +133,7 @@ class GeminiClassifierTest {
 
 		// 응답 캐시를 두지 않기로 했으므로, 재현성은 매번 실제로 호출해서 확인해야 한다.
 		// 온도 0과 라벨 enum 제한이 실제로 효과가 있는지 보는 항목이다
-		GeminiClassifier classifier = new GeminiClassifier(apiKey, MODEL);
+		GeminiClassifier classifier = new GeminiClassifier(apiKey, TestMaterials.GEMINI_MODEL);
 		List<DocumentType> labels = new ArrayList<>();
 		for (int attempt = 0; attempt < 3; attempt++) {
 			labels.add(classifier.classify(URLA_PAGE_TEXT).label());

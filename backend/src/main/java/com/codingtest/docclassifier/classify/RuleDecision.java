@@ -8,7 +8,11 @@ package com.codingtest.docclassifier.classify;
  */
 public record RuleDecision(DocumentType label, String evidence) {
 
-	/** 판정하지 못한 결과를 만들 때 쓴다 */
+	/**
+	 * 판정하지 못한 결과를 만들 때 쓴다.
+	 *
+	 * @return 라벨이 {@link DocumentType#UNDECIDED}이고 근거가 빈 문자열인 결과
+	 */
 	public static RuleDecision undecided() {
 		return new RuleDecision(DocumentType.UNDECIDED, "");
 	}

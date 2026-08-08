@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import com.codingtest.docclassifier.TestMaterials;
 import com.codingtest.docclassifier.accuracy.AccuracyEvaluator;
-import com.codingtest.docclassifier.classify.DocumentType;
 import com.codingtest.docclassifier.classify.RuleClassifier;
 import com.codingtest.docclassifier.group.DocumentGrouper;
 import com.codingtest.docclassifier.group.PageMarkerParser;
@@ -31,22 +30,22 @@ import tools.jackson.databind.SerializationFeature;
 import tools.jackson.databind.json.JsonMapper;
 
 /**
- * package_02를 끝까지 돌려 분류·그룹핑 결과를 파일로 남긴다.
+ * package_01을 끝까지 돌려 분류·그룹핑 결과를 파일로 남긴다.
  *
- * <p>과제가 package_02의 분류 결과를 제출물에 포함하라고 요구하는데, package_02에는 정답지가 없다.
- * 그래서 채점은 하지 않고 결과만 저장한다. 저장한 파일을 커밋해 두면 제공 자료나 API 키가 없는 사람도
- * 이 패키지를 어떻게 분류했는지 확인할 수 있다.
+ * <p>{@code Package01GroupingTest}는 그룹핑 규칙만 시험하려고 라벨을 정답지에서 주입하고
+ * 결과를 콘솔에만 찍는다. 그래서 제공 자료가 없는 사람은 그룹핑 결과를 볼 방법이 없었다.
+ * 이 테스트는 화면과 같은 파이프라인을 그대로 돌려 결과를 커밋 대상 파일로 저장한다.
  *
- * <p>정답지가 있는 package_01 쪽은 {@code RuleAndLlmAccuracyTest}가 정확도까지 재어 따로 저장한다.
+ * <p>package_01은 정답지가 있으므로 정확도까지 함께 담긴다. package_02 쪽은
+ * {@code Package02ResultTest}가 같은 형태로 저장하고, 정확도는 null이다.
  */
-class Package02ResultTest {
+class Package01ResultTest {
 
 	/** 키를 적어 두는 로컬 설정 파일. .gitignore 대상이라 저장소에는 올라가지 않는다 */
 	private static final Path LOCAL_SETTINGS = Path.of("src/main/resources/application-local.properties");
 
 	/** 결과를 저장할 위치 */
-	private static final Path OUTPUT_PATH = Path.of("src/main/resources/results/package_02.json");
-
+	private static final Path OUTPUT_PATH = Path.of("src/main/resources/results/package_01.json");
 
 	/**
 	 * API 키를 찾는다. 환경변수를 먼저 보고, 없으면 로컬 설정 파일을 읽는다.
@@ -72,8 +71,8 @@ class Package02ResultTest {
 	}
 
 	@Test
-	@DisplayName("package_02를 분류·그룹핑해 결과 파일을 남긴다")
-	void writesPackage02Result() throws Exception {
+	@DisplayName("package_01을 분류·그룹핑해 결과 파일을 남긴다")
+	void writesPackage01Result() throws Exception {
 		Assumptions.assumeTrue(TestMaterials.isAvailable(), "제공 자료 폴더가 없어 건너뜁니다");
 		String apiKey = findApiKey();
 		Assumptions.assumeTrue(!apiKey.isBlank(), "GOOGLE_API_KEY가 없어 건너뜁니다");
@@ -88,8 +87,8 @@ class Package02ResultTest {
 				new DocumentGrouper(new GeminiGrouper(apiKey, TestMaterials.GEMINI_MODEL)),
 				new AccuracyEvaluator());
 
-		Path pdf = TestMaterials.package02Shuffled();
-		ClassificationResult result = service.classify(pdf, pdf.getFileName().toString(), null);
+		Path pdf = TestMaterials.package01Shuffled();
+		ClassificationResult result = service.classify(pdf, pdf.getFileName().toString(), "package_01");
 
 		print(result);
 
@@ -98,15 +97,13 @@ class Package02ResultTest {
 			save(result);
 		}
 
-		assertThat(result.totalPages()).as("package_02 페이지 수").isEqualTo(44);
-		assertThat(result.pages())
-				.as("판정하지 못한 페이지")
-				.noneMatch(page -> page.label() == DocumentType.UNDECIDED);
+		assertThat(result.totalPages()).as("package_01 페이지 수").isEqualTo(39);
+		assertThat(result.accuracy()).as("정답지 대조 결과").isNotNull();
 		assertThat(result.documents()).as("복원한 문서").isNotEmpty();
 	}
 
 	/**
-	 * 결과 요약을 콘솔에 찍는다. 저장된 파일을 열어 보지 않아도 무엇이 나왔는지 바로 보이게 한다.
+	 * 결과 요약을 콘솔에 찍는다.
 	 *
 	 * @param result 분류 결과
 	 */
@@ -114,24 +111,23 @@ class Package02ResultTest {
 		PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
 		long ruleCount = result.pages().stream().filter(page -> page.decidedBy() == DecidedBy.RULE).count();
 		long llmCount = result.pages().stream().filter(page -> page.decidedBy() == DecidedBy.LLM).count();
-		long ocrCount = result.pages().stream().filter(PageResult::ocrUsed).count();
 
-		out.printf("%n=== package_02 분류 결과 ===%n");
-		out.printf("%d페이지 · 규칙 %d장 · LLM %d장 · OCR %d장 · 문서 %d개 · 미분류 %d장%n",
-				result.totalPages(), ruleCount, llmCount, ocrCount,
-				result.documents().size(), result.ungroupedPages().size());
+		out.printf("%n=== package_01 분류·그룹핑 결과 ===%n");
+		out.printf("%d페이지 · 규칙 %d장 · LLM %d장 · 문서 %d개 · 미분류 %d장 · 정확도 %d/%d%n",
+				result.totalPages(), ruleCount, llmCount,
+				result.documents().size(), result.ungroupedPages().size(),
+				result.accuracy().correctPages(), result.accuracy().totalPages());
 
 		for (DocumentResult document : result.documents()) {
 			out.printf("  %-14s %2d장  시작 %2d쪽  끝 %2d쪽  %s%n",
 					document.label(), document.pages().size(),
 					document.startPage(), document.endPage(), document.pages());
 		}
+		out.printf("  미분류 %s%n", result.ungroupedPages());
 	}
 
 	/**
 	 * Gemini 호출이 실패한 페이지 수를 센다.
-	 *
-	 * <p>API가 죽어서 못 판정한 것과 모델이 판단을 못 한 것은 원인이 다른데, 결과 파일만 보면 구분되지 않는다.
 	 *
 	 * @param result 분류 결과
 	 * @return 호출이 실패한 페이지 수

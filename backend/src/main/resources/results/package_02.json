@@ -27,7 +27,7 @@
     "label" : "CREDIT_REPORT",
     "decidedBy" : "LLM",
     "ocrUsed" : false,
-    "evidence" : "Experian 신용점수(767점) 및 신용점수 고지문 내용이 포함된 신용 조회 결과 문서이므로 CREDIT_REPORT에 해당합니다.",
+    "evidence" : "해당 페이지는 Experian에서 조회된 신용 점수(767점)와 신용점수 고지문 내용이 포함되어 있으므로 CREDIT_REPORT에 해당합니다.",
     "marker" : null
   }, {
     "pageNumber" : 5,
@@ -132,7 +132,7 @@
     "label" : "CREDIT_REPORT",
     "decidedBy" : "LLM",
     "ocrUsed" : false,
-    "evidence" : "Xactus에서 대출 신청자에게 3대 신용평가기관의 신용 보고서 제공 사실을 알리고 신용 조회 내역에 대한 설명을 요청하는 신용 보고서 관련 문서이다.",
+    "evidence" : "Xactus에서 발행한 3대 신용조회기관(TransUnion, Experian, Equifax) 정보 포함 신용 보고서 관련 소명 및 고지 문서이므로 CREDIT_REPORT로 분류됩니다.",
     "marker" : null
   }, {
     "pageNumber" : 20,
@@ -167,7 +167,7 @@
     "label" : "CREDIT_REPORT",
     "decidedBy" : "LLM",
     "ocrUsed" : false,
-    "evidence" : "신용 평가 기관인 Xactus에서 발행한 서류로 신용 계좌, 공적 기록, 신용 조회 내역 등의 정보가 기재된 신용 보고서 관련 문서입니다.",
+    "evidence" : "신용조회 회사인 XACTUS에서 발행하고 Experian 조회 내역 및 신용 계좌 항목이 포함되어 있으므로 신용 보고서 관련 문서입니다.",
     "marker" : null
   }, {
     "pageNumber" : 25,
@@ -209,7 +209,7 @@
     "label" : "TITLE_REPORT",
     "decidedBy" : "LLM",
     "ocrUsed" : false,
-    "evidence" : "24개월 소유권 변동 내역(24 MONTH CHAIN OF TITLE REPORT) 및 부동산 등기 관련 정보를 포함하고 있으므로 권원 보고서입니다.",
+    "evidence" : "문서 제목이 '24 MONTH CHAIN OF TITLE REPORT'로 명시되어 있고 토지 기록 및 권원 이전 내역을 확인하는 내용을 담고 있으므로 TITLE_REPORT에 해당합니다.",
     "marker" : null
   }, {
     "pageNumber" : 31,
@@ -223,7 +223,7 @@
     "label" : "CREDIT_REPORT",
     "decidedBy" : "LLM",
     "ocrUsed" : false,
-    "evidence" : "신용 조사 기관인 Experian에서 차주의 정보와 함께 발행한 소비자 신용 보고서입니다.",
+    "evidence" : "소비자 신용 보고 기관인 Experian에서 대출 신청자 정보를 바탕으로 발행한 보고서이므로 신용 보고서(CREDIT_REPORT)로 판단됩니다.",
     "marker" : null
   }, {
     "pageNumber" : 33,
@@ -251,7 +251,7 @@
     "label" : "INCOME_DOC",
     "decidedBy" : "LLM",
     "ocrUsed" : false,
-    "evidence" : "IRS W-2 양식에 기반한 소득 요약 정보가 포함되어 있으므로 소득 증빙 문서(INCOME_DOC)에 해당합니다.",
+    "evidence" : "IRS Form W-2 소득 요약 정보 및 임금액 항목이 기재되어 있어 소득 증빙 문서로 판정됩니다.",
     "marker" : null
   }, {
     "pageNumber" : 37,
@@ -326,8 +326,8 @@
     "label" : "TITLE_REPORT",
     "totalPages" : 4,
     "startPage" : 26,
-    "endPage" : 30,
-    "pages" : [ 26, 40, 11, 30 ]
+    "endPage" : 11,
+    "pages" : [ 26, 40, 11 ]
   }, {
     "label" : "CREDIT_REPORT",
     "totalPages" : 9,
@@ -337,9 +337,9 @@
   }, {
     "label" : "INCOME_DOC",
     "totalPages" : 2,
-    "startPage" : 36,
+    "startPage" : 12,
     "endPage" : 39,
-    "pages" : [ 36, 12, 39 ]
+    "pages" : [ 12, 39 ]
   }, {
     "label" : "INCOME_DOC",
     "totalPages" : 2,
@@ -347,12 +347,18 @@
     "endPage" : 31,
     "pages" : [ 27, 31 ]
   }, {
+    "label" : "INCOME_DOC",
+    "totalPages" : 0,
+    "startPage" : 36,
+    "endPage" : 36,
+    "pages" : [ 36 ]
+  }, {
     "label" : "URLA_1003",
     "totalPages" : 10,
     "startPage" : 20,
     "endPage" : 37,
     "pages" : [ 20, 35, 13, 16, 43, 18, 23, 29, 25, 37 ]
   } ],
-  "ungroupedPages" : [ ],
+  "ungroupedPages" : [ 30 ],
   "accuracy" : null
 }

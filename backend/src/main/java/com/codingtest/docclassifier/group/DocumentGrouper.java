@@ -83,7 +83,7 @@ public class DocumentGrouper {
 	 * 라벨 하나에 속한 페이지들을 문서로 묶는다.
 	 *
 	 * @param label     대상 라벨
-	 * @param pages     그 라벨의 페이지 목록
+	 * @param allPages  그 라벨의 페이지 목록
 	 * @param documents 만들어진 문서를 담을 곳
 	 * @param ungrouped 묶지 못한 페이지 번호를 담을 곳
 	 */

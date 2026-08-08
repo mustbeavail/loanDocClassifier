@@ -1,0 +1,393 @@
+{
+  "fileName" : "01.990145627_shuffled.pdf",
+  "totalPages" : 39,
+  "pages" : [ {
+    "pageNumber" : 1,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "7 of 11"
+  }, {
+    "pageNumber" : 2,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "10 of 11"
+  }, {
+    "pageNumber" : 3,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "LLM",
+    "ocrUsed" : false,
+    "evidence" : "신용조회 회사인 Xactus에서 발행한 보고서 ID와 신청자 서명란이 포함되어 있어 신용 보고서로 판단됩니다.",
+    "marker" : null
+  }, {
+    "pageNumber" : 4,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "5 of 11"
+  }, {
+    "pageNumber" : 5,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "4 of 11"
+  }, {
+    "pageNumber" : 6,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "1 of 11"
+  }, {
+    "pageNumber" : 7,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "11 of 11"
+  }, {
+    "pageNumber" : 8,
+    "label" : "TITLE_REPORT",
+    "decidedBy" : "LLM",
+    "ocrUsed" : false,
+    "evidence" : "플랫 맵(Plat map)은 주로 부동산 권원 보고서(Title Report)나 측량 관련 문서에 포함되는 구획 지도입니다.",
+    "marker" : null
+  }, {
+    "pageNumber" : 9,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "1 of 11"
+  }, {
+    "pageNumber" : 10,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "3 of 11"
+  }, {
+    "pageNumber" : 11,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "10 of 11"
+  }, {
+    "pageNumber" : 12,
+    "label" : "TITLE_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "preliminary report",
+    "marker" : "Page 4"
+  }, {
+    "pageNumber" : 13,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "LLM",
+    "ocrUsed" : false,
+    "evidence" : "Xactus에서 발행하여 3대 신용평가기관(TransUnion, Experian, Equifax) 정보 및 신용 보고서 관련 설명을 포함하므로 CREDIT_REPORT에 해당한다.",
+    "marker" : null
+  }, {
+    "pageNumber" : 14,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "6 of 11"
+  }, {
+    "pageNumber" : 15,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "8 of 11"
+  }, {
+    "pageNumber" : 16,
+    "label" : "TITLE_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "preliminary report",
+    "marker" : "Page 6"
+  }, {
+    "pageNumber" : 17,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "LLM",
+    "ocrUsed" : false,
+    "evidence" : "해당 페이지는 Equifax 신용 점수 및 신용 보고서 관련 고지 내용을 포함하고 있으므로 CREDIT_REPORT로 분류됩니다.",
+    "marker" : null
+  }, {
+    "pageNumber" : 18,
+    "label" : "TITLE_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "preliminary report",
+    "marker" : "Page 7"
+  }, {
+    "pageNumber" : 19,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "6 of 11"
+  }, {
+    "pageNumber" : 20,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "4 of 11"
+  }, {
+    "pageNumber" : 21,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : null
+  }, {
+    "pageNumber" : 22,
+    "label" : "TITLE_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "preliminary report",
+    "marker" : "Page 5"
+  }, {
+    "pageNumber" : 23,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "LLM",
+    "ocrUsed" : false,
+    "evidence" : "신용조회 회사 Xactus에서 발행한 문서로 3대 신용평가사(TransUnion, Experian, Equifax) 정보와 신규 부채 확인 항목이 포함되어 있어 신용 보고서로 판단됩니다.",
+    "marker" : null
+  }, {
+    "pageNumber" : 24,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "8 of 11"
+  }, {
+    "pageNumber" : 25,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "credit score disclosure",
+    "marker" : null
+  }, {
+    "pageNumber" : 26,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "11 of 11"
+  }, {
+    "pageNumber" : 27,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "9 of 11"
+  }, {
+    "pageNumber" : 28,
+    "label" : "TITLE_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "preliminary report",
+    "marker" : "Page 8"
+  }, {
+    "pageNumber" : 29,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "LLM",
+    "ocrUsed" : false,
+    "evidence" : "신용조회 회사인 XACTUS에서 발행한 신용 보고서로 신용 계좌 상태, 연체 기록, 공공 기록(파산) 정보가 포함되어 있습니다.",
+    "marker" : null
+  }, {
+    "pageNumber" : 30,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "7 of 11"
+  }, {
+    "pageNumber" : 31,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "2 of 11"
+  }, {
+    "pageNumber" : 32,
+    "label" : "TITLE_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "preliminary report",
+    "marker" : "Page 1"
+  }, {
+    "pageNumber" : 33,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "5 of 11"
+  }, {
+    "pageNumber" : 34,
+    "label" : "TITLE_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "preliminary report",
+    "marker" : "Page 2"
+  }, {
+    "pageNumber" : 35,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "9 of 11"
+  }, {
+    "pageNumber" : 36,
+    "label" : "INCOME_DOC",
+    "decidedBy" : "LLM",
+    "ocrUsed" : false,
+    "evidence" : "CTEC 세무 작성자 등록번호와 함께 부동산 중개인의 수입 및 경비 내역이 작성된 소득 증빙 관련 세무/손익 문서입니다.",
+    "marker" : null
+  }, {
+    "pageNumber" : 37,
+    "label" : "TITLE_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "preliminary report",
+    "marker" : "Page 3"
+  }, {
+    "pageNumber" : 38,
+    "label" : "URLA_1003",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "freddie mac form 65",
+    "marker" : "2 of 11"
+  }, {
+    "pageNumber" : 39,
+    "label" : "CREDIT_REPORT",
+    "decidedBy" : "RULE",
+    "ocrUsed" : false,
+    "evidence" : "repositories: tuc/exp/eqx",
+    "marker" : "3 of 11"
+  } ],
+  "documents" : [ {
+    "label" : "CREDIT_REPORT",
+    "totalPages" : 11,
+    "startPage" : 9,
+    "endPage" : 3,
+    "pages" : [ 9, 31, 39, 5, 33, 19, 1, 15, 27, 11, 7, 21, 25, 17, 13, 29, 23, 3 ]
+  }, {
+    "label" : "URLA_1003",
+    "totalPages" : 11,
+    "startPage" : 6,
+    "endPage" : 26,
+    "pages" : [ 6, 38, 10, 20, 4, 14, 30, 24, 35, 2, 26 ]
+  }, {
+    "label" : "TITLE_REPORT",
+    "totalPages" : 0,
+    "startPage" : 32,
+    "endPage" : 28,
+    "pages" : [ 32, 34, 37, 12, 22, 16, 18, 28 ]
+  }, {
+    "label" : "INCOME_DOC",
+    "totalPages" : 0,
+    "startPage" : 36,
+    "endPage" : 36,
+    "pages" : [ 36 ]
+  } ],
+  "ungroupedPages" : [ 8 ],
+  "accuracy" : {
+    "totalPages" : 39,
+    "correctPages" : 39,
+    "accuracy" : 1.0,
+    "undecidedPages" : 0,
+    "labelMetrics" : [ {
+      "label" : "URLA_1003",
+      "support" : 11,
+      "predicted" : 11,
+      "correct" : 11,
+      "precision" : 1.0,
+      "recall" : 1.0,
+      "f1" : 1.0
+    }, {
+      "label" : "CREDIT_REPORT",
+      "support" : 18,
+      "predicted" : 18,
+      "correct" : 18,
+      "precision" : 1.0,
+      "recall" : 1.0,
+      "f1" : 1.0
+    }, {
+      "label" : "TITLE_REPORT",
+      "support" : 9,
+      "predicted" : 9,
+      "correct" : 9,
+      "precision" : 1.0,
+      "recall" : 1.0,
+      "f1" : 1.0
+    }, {
+      "label" : "INCOME_DOC",
+      "support" : 1,
+      "predicted" : 1,
+      "correct" : 1,
+      "precision" : 1.0,
+      "recall" : 1.0,
+      "f1" : 1.0
+    }, {
+      "label" : "OTHER",
+      "support" : 0,
+      "predicted" : 0,
+      "correct" : 0,
+      "precision" : 0.0,
+      "recall" : 0.0,
+      "f1" : 0.0
+    } ],
+    "confusionMatrix" : {
+      "URLA_1003" : {
+        "URLA_1003" : 11,
+        "CREDIT_REPORT" : 0,
+        "TITLE_REPORT" : 0,
+        "INCOME_DOC" : 0,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      },
+      "CREDIT_REPORT" : {
+        "URLA_1003" : 0,
+        "CREDIT_REPORT" : 18,
+        "TITLE_REPORT" : 0,
+        "INCOME_DOC" : 0,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      },
+      "TITLE_REPORT" : {
+        "URLA_1003" : 0,
+        "CREDIT_REPORT" : 0,
+        "TITLE_REPORT" : 9,
+        "INCOME_DOC" : 0,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      },
+      "INCOME_DOC" : {
+        "URLA_1003" : 0,
+        "CREDIT_REPORT" : 0,
+        "TITLE_REPORT" : 0,
+        "INCOME_DOC" : 1,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      },
+      "OTHER" : {
+        "URLA_1003" : 0,
+        "CREDIT_REPORT" : 0,
+        "TITLE_REPORT" : 0,
+        "INCOME_DOC" : 0,
+        "OTHER" : 0,
+        "UNDECIDED" : 0
+      }
+    }
+  }
+}

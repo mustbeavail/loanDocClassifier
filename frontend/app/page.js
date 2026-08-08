@@ -4,13 +4,22 @@ import { useState } from 'react';
 
 import AccuracyPanel from './AccuracyPanel';
 import ClassifyPanel from './ClassifyPanel';
+import SavedResultPanel from './SavedResultPanel';
 import styles from './styles.module.css';
 
+/** 탭 정의. 값은 상태로 쓰고 이름은 버튼에 그대로 쓴다 */
+const TABS = [
+  { id: 'classify', name: '분류하기' },
+  { id: 'saved', name: '저장된 결과' },
+  { id: 'accuracy', name: '저장된 정확도' },
+];
+
 /**
- * 첫 화면. 두 개의 탭을 오간다.
+ * 첫 화면. 세 개의 탭을 오간다.
  *
  * - 분류하기: PDF를 올려 그 자리에서 분류하고, 원하면 정답지와 대조해 정확도까지 잰다
- * - 저장된 정확도: 제공 자료로 미리 재어 저장소에 커밋해 둔 수치를 본다
+ * - 저장된 결과: 두 패키지의 분류·그룹핑 결과를 미리 산출해 커밋해 둔 파일에서 읽는다
+ * - 저장된 정확도: package_01 정답지와의 대조표를 읽는다
  *
  * 방금 잰 값과 저장된 값을 한 화면에 섞지 않으려고 탭으로 나눴다. 어느 쪽 수치인지 헷갈리면 안 된다.
  *
@@ -29,23 +38,21 @@ export default function Home() {
       </header>
 
       <nav className={styles.tabs}>
-        <button
-          type="button"
-          className={tab === 'classify' ? styles.tabActive : styles.tab}
-          onClick={() => setTab('classify')}
-        >
-          분류하기
-        </button>
-        <button
-          type="button"
-          className={tab === 'accuracy' ? styles.tabActive : styles.tab}
-          onClick={() => setTab('accuracy')}
-        >
-          저장된 정확도
-        </button>
+        {TABS.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            className={tab === item.id ? styles.tabActive : styles.tab}
+            onClick={() => setTab(item.id)}
+          >
+            {item.name}
+          </button>
+        ))}
       </nav>
 
-      {tab === 'classify' ? <ClassifyPanel /> : <AccuracyPanel />}
+      {tab === 'classify' && <ClassifyPanel />}
+      {tab === 'saved' && <SavedResultPanel />}
+      {tab === 'accuracy' && <AccuracyPanel />}
     </main>
   );
 }

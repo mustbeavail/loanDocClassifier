@@ -102,6 +102,14 @@ class PageMarkerParserTest {
 	}
 
 	@Test
+	@DisplayName("표기 뒤에 다른 숫자가 붙어 있어도 그것까지 한 숫자로 읽지 않는다")
+	void doesNotSwallowFollowingNumbers() {
+		// 바닥글 뒤에 보고서 번호가 이어 붙는 배치다. 열어 두면 "9 990367284"가 한 숫자로 잡혀
+		// 전체 장수가 정수 범위를 넘고 파싱에서 예외가 난다
+		assertThat(parser.parse("Page 8 of 9 990367284 91887342")).isEqualTo(new PageMarker(8, 9));
+	}
+
+	@Test
 	@DisplayName("표기가 여러 개면 마지막 것을 쓴다")
 	void usesLastMarker() {
 		// 순번은 대개 바닥글에 찍히므로 뒤에 있는 것이 진짜일 가능성이 높다

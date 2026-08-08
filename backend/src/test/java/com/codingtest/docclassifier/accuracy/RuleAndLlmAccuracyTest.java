@@ -45,8 +45,6 @@ import tools.jackson.databind.json.JsonMapper;
  */
 class RuleAndLlmAccuracyTest {
 
-	/** 2차 판정에 쓰는 모델 */
-	private static final String MODEL = "gemini-3.6-flash";
 
 	/** 키를 적어 두는 로컬 설정 파일. .gitignore 대상이라 저장소에는 올라가지 않는다 */
 	private static final Path LOCAL_SETTINGS = Path.of("src/main/resources/application-local.properties");
@@ -103,7 +101,7 @@ class RuleAndLlmAccuracyTest {
 		Assumptions.assumeTrue(!apiKey.isBlank(), "GOOGLE_API_KEY가 없어 건너뜁니다");
 
 		GroundTruth groundTruth = loadGroundTruth();
-		GeminiClassifier llmClassifier = new GeminiClassifier(apiKey, MODEL);
+		GeminiClassifier llmClassifier = new GeminiClassifier(apiKey, TestMaterials.GEMINI_MODEL);
 
 		Map<Integer, DocumentType> ruleOnly = new LinkedHashMap<>();
 		Map<Integer, DocumentType> combined = new LinkedHashMap<>();

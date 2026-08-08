@@ -129,11 +129,15 @@ export default function ClassifyPanel() {
 /**
  * 분류 결과 전체를 그린다.
  *
+ * 방금 올려서 받은 결과와 저장소에 커밋된 결과가 같은 모양이라 두 화면이 이 컴포넌트를 함께 쓴다.
+ * 어느 쪽 수치인지는 배지와 안내문으로만 갈린다.
+ *
  * @param {object} props
  * @param {object} props.result 백엔드의 ClassificationResult
+ * @param {boolean} [props.stored] 커밋된 결과를 그리는지 여부. 기본값은 방금 측정한 결과
  * @returns {JSX.Element} 요약 · 색 띠 · 문서 목록 · 페이지 표 · (있으면) 정확도
  */
-function ClassifyResult({ result }) {
+export function ClassifyResult({ result, stored }) {
   const ruleCount = result.pages.filter((page) => page.decidedBy === 'RULE').length;
   const llmCount = result.pages.filter((page) => page.decidedBy === 'LLM').length;
   const ocrCount = result.pages.filter((page) => page.ocrUsed).length;
@@ -165,10 +169,14 @@ function ClassifyResult({ result }) {
         <>
           <h3 className={styles.sectionTitle}>
             정확도
-            <span className={styles.badgeLive}>방금 측정</span>
+            <span className={stored ? styles.badgeStored : styles.badgeLive}>
+              {stored ? '저장된 측정값' : '방금 측정'}
+            </span>
           </h3>
           <p className={styles.hint}>
-            이번 업로드 결과를 {GROUND_TRUTH_ID} 정답지와 대조해 계산한 값입니다.
+            {stored
+              ? `제공 자료로 미리 돌려 ${GROUND_TRUTH_ID} 정답지와 대조한 값입니다.`
+              : `이번 업로드 결과를 ${GROUND_TRUTH_ID} 정답지와 대조해 계산한 값입니다.`}
           </p>
           <AccuracyReportView report={result.accuracy} />
         </>

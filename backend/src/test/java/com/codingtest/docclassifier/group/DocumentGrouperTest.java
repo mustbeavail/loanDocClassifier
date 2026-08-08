@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.codingtest.docclassifier.TestMaterials;
 import com.codingtest.docclassifier.classify.DocumentType;
 import com.codingtest.docclassifier.llm.GeminiGrouper;
 
@@ -21,7 +22,7 @@ import com.codingtest.docclassifier.llm.GeminiGrouper;
 class DocumentGrouperTest {
 
 	/** 키가 없는 그룹퍼. 호출해도 빈 결과를 돌려주므로 LLM 경로가 그대로 드러난다 */
-	private final GeminiGrouper offlineLlm = new GeminiGrouper("", "gemini-3.6-flash");
+	private final GeminiGrouper offlineLlm = new GeminiGrouper("", TestMaterials.GEMINI_MODEL);
 
 	private final DocumentGrouper grouper = new DocumentGrouper(offlineLlm);
 
